@@ -24,41 +24,41 @@ const comments = [
   { text: 'Nice Nice Nice!', id: 542328 }
 ];
 
-const date = new Date;
-const currentYear = date.getFullYear();
+const currentYear = (new Date).getFullYear();
 
 // Some and Every Checks
 // Array.prototype.some() // is at least one person 19 or older?
-const overNineteen = people.some(function(p) {
-  return (currentYear - p.year) > 19;
-});
-console.log(overNineteen);
+const overNineteen = people.some(p => currentYear - p.year >= 19);
+console.log({overNineteen});
 
 // Array.prototype.every() // is everyone 19 or older?
-const allOverNineteen = people.every(function(p) {
-  return (currentYear - p.year) > 19;
-});
-console.log(allOverNineteen);
+const allOverNineteen = people.every(p => currentYear - p.year >= 19);
+console.log({allOverNineteen});
 
 // Array.prototype.find()
 // Find is like filter, but instead returns just the one you are looking for
 // find the comment with the ID of 823423
-const foundComment = comments.find(function(c) {
-  return c.id === 823423;
-});
-  console.log(foundComment);
-
+const foundComment = comments.find(c => c.id === 823423);
+console.log(foundComment);
 
 // Array.prototype.findIndex()
 // Find the comment with this ID
 // delete the comment with the ID of 823423
-console.log('before delete:', comments);
-const commentsCopy = comments;
-const deleteCommentIndex = commentsCopy.findIndex(function(c) {
-  return c.id === 823423;
-});
-commentsCopy.splice(deleteCommentIndex, 1);
-console.log('after delete:', commentsCopy);
+console.table(comments);
+const deleteCommentIndex = comments.findIndex(c => c.id === 823423);
+
+// Non-destructive splice approach
+// const commentsCopy = comments;
+// commentsCopy.splice(deleteCommentIndex, 1);
+
+// ES6 spread approach
+const newComments = [
+  ...comments.slice(0, deleteCommentIndex),
+  ...comments.slice(deleteCommentIndex + 1)
+]
+
+console.table(newComments);
+// console.table(commentsCopy);
 
 </script>
 </body>
